@@ -21,7 +21,7 @@ const products = [
 	},
 	{
 		id: 4,
-		name: "Sex Insurance",
+		name: "Test Insurance",
 		description: "sample description",
 		link: "/client/sex-insurance",
 	},
