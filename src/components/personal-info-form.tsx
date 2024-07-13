@@ -26,68 +26,32 @@ export default function PersonalInfoForm() {
 						{errors.name && <p className="text-red-500">{`${errors.name.message}`}</p>}
 					</div>
 					{/* DOB */}
-					<div className="flex flex-col space-y-1.5">
+					{/* <div className="flex flex-col space-y-1.5">
 						<Label htmlFor="DOB">Date of Birth</Label>
-						<Input {...register("DOB", { valueAsDate: true })} type="date" id="DOB" />
-						{errors.name && <p className="text-red-500">{`${errors.date}`}</p>}
-					</div>
+						<Input {...register("DOB", { valueAsDate: true, required: "Please enter a valid date" })} type="date" id="DOB" />
+						{errors.DOB && <p className="text-red-500">{`${errors.DOB.message}`}</p>}
+					</div> */}
 					{/* Gender */}
 					<div>
 						<Label htmlFor="gender">Gender</Label>
 						<div className="flex flex-col space-y-1.5">
-							<RadioGroup id="gender" {...register("DOB", { required: "Please select your gender" })} defaultValue="male">
+							<RadioGroup id="gender">
 								<div className="flex items-center space-x-2">
-									<RadioGroupItem value="male" id="r1" />
+									<RadioGroupItem value="male" id="r1" {...register("gender")} />
 									<Label htmlFor="r1">Male</Label>
 								</div>
 								<div className="flex items-center space-x-2">
-									<RadioGroupItem value="female" id="r2" />
+									<RadioGroupItem value="female" id="r2" {...register("gender")} />
 									<Label htmlFor="r2">Female</Label>
 								</div>
 								<div className="flex items-center space-x-2">
-									<RadioGroupItem value="other" id="r3" />
+									<RadioGroupItem value="other" id="r3" {...register("gender")} />
 									<Label htmlFor="r3">Other</Label>
 								</div>
 							</RadioGroup>
-							{errors.name && <p className="text-red-500">{`${errors.gender?.message}`}</p>}
+							{errors.gender && <p className="text-red-500">{`${errors.gender?.message}`}</p>}
 						</div>
 					</div>
-
-					{/* Email */}
-					<div className="flex flex-col space-y-1.5">
-						<Label htmlFor="email">Email</Label>
-						<Input
-							{...register("email", {
-								required: "Please enter your email",
-								validate: {
-									matchPattern: (v) => /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(v) || "Email address must be a valid address",
-								},
-							})}
-							placeholder="Please enter your email"
-							type="email"
-							id="email"
-							name="email"
-							autoComplete="off"
-						/>
-						{errors.email && <p className="text-red-500">{`${errors.email.message}`}</p>}
-					</div>
-				</div>
-				<div className="flex flex-col space-y-1.5">
-					<Label htmlFor="message">Your message</Label>
-					<Textarea
-						className="resize-none"
-						{...register("message", {
-							required: "Please enter a message",
-							minLength: {
-								value: 10,
-								message: "Please enter a longer message (min 10 characters)",
-							},
-						})}
-						placeholder="Type your message here..."
-						id="message"
-						name="message"
-					/>
-					{errors.message && <p className="text-red-500">{`${errors.message.message}`}</p>}
 				</div>
 			</CardContent>
 		</main>

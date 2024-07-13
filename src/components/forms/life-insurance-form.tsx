@@ -2,6 +2,7 @@
 
 // UI COMPONENTS
 import { Card, CardContent } from "../ui/card";
+import { Checkbox } from "../ui/checkbox";
 import { Input } from "../ui/input";
 import { Label } from "../ui/label";
 import { RadioGroup, RadioGroupItem } from "../ui/radio-group";
@@ -15,91 +16,86 @@ export default function LifeInsuranceForm() {
 		formState: { errors },
 	} = useFormContext();
 	return (
-		<main>
+		<>
 			<h1 className="text-center font-bold text-xl">Policy Details</h1>
 			<CardContent>
 				<div className="grid w-full items-center gap-4">
 					{/* Policy Type */}
 					<div>
-						<Label htmlFor="policy">Policy</Label>
+						<Label htmlFor="policyType">Policy Type</Label>
 						<div className="flex flex-col space-y-1.5">
-							<RadioGroup id="policy" {...register("policy", { required: "Please select your policy" })} defaultValue="somethingdude">
+							<RadioGroup id="policyType" defaultValue="term-life">
 								<div className="flex items-center space-x-2">
-									<RadioGroupItem value="male" id="r1" />
-									<Label htmlFor="r1">Male</Label>
+									<RadioGroupItem value="term-life" id="r1" {...register("policyType")} />
+									<Label htmlFor="r1">Term Life</Label>
 								</div>
 								<div className="flex items-center space-x-2">
-									<RadioGroupItem value="female" id="r2" />
-									<Label htmlFor="r2">Female</Label>
+									<RadioGroupItem value="whole-life" id="r2" {...register("policyType")} />
+									<Label htmlFor="r2">Whole Life</Label>
 								</div>
 								<div className="flex items-center space-x-2">
-									<RadioGroupItem value="other" id="r3" />
-									<Label htmlFor="r3">Other</Label>
+									<RadioGroupItem value="universal-life" id="r3" {...register("policyType")} />
+									<Label htmlFor="r3">Universal Life</Label>
 								</div>
 							</RadioGroup>
-							{errors.name && <p className="text-red-500">{`${errors.gender?.message}`}</p>}
+							{errors.policyType && <p className="text-red-500">{`${errors.policyType.message}`}</p>}
 						</div>
 					</div>
-				</div>
-				{/* DOB */}
-				<div className="flex flex-col space-y-1.5">
-					<Label htmlFor="DOB">Date of Birth</Label>
-					<Input {...register("DOB", { required: "Please enter a valid DOB" })} placeholder="Please enter your name" type="date" name="DOB" id="DOB" autoComplete="off" />
-					{errors.name && <p className="text-red-500">{`${errors.name.message}`}</p>}
-				</div>
-				{/* Gender */}
-				<div className="flex flex-col space-y-1.5">
-					<RadioGroup defaultValue="male">
-						<div className="flex items-center space-x-2">
-							<RadioGroupItem value="male" id="r1" />
-							<Label htmlFor="r1">Male</Label>
+					<div>
+						<Label htmlFor="policyTerm">Policy Term</Label>
+						<div className="flex flex-col space-y-1.5">
+							<RadioGroup id="policyTerm" defaultValue="5">
+								<div className="flex items-center space-x-2">
+									<RadioGroupItem value="5" id="r1" {...register("policyTerm")} />
+									<Label htmlFor="r1">5</Label>
+								</div>
+								<div className="flex items-center space-x-2">
+									<RadioGroupItem value="10" id="r2" {...register("policyTerm")} />
+									<Label htmlFor="r2">10</Label>
+								</div>
+								<div className="flex items-center space-x-2">
+									<RadioGroupItem value="20" id="r3" {...register("policyTerm")} />
+									<Label htmlFor="r3">20</Label>
+								</div>
+							</RadioGroup>
+							{errors.policyTerm && <p className="text-red-500">{`${errors.policyTerm.message}`}</p>}
 						</div>
-						<div className="flex items-center space-x-2">
-							<RadioGroupItem value="female" id="r2" />
-							<Label htmlFor="r2">Female</Label>
-						</div>
-						<div className="flex items-center space-x-2">
-							<RadioGroupItem value="other" id="r3" />
-							<Label htmlFor="r3">Other</Label>
-						</div>
-					</RadioGroup>
-					{/* Email */}
-					<div className="flex flex-col space-y-1.5">
-						<Label htmlFor="email">Email</Label>
-						<Input
-							{...register("email", {
-								required: "Please enter your email",
-								validate: {
-									matchPattern: (v) => /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(v) || "Email address must be a valid address",
-								},
-							})}
-							placeholder="Please enter your email"
-							type="email"
-							id="email"
-							name="email"
-							autoComplete="off"
-						/>
-						{errors.email && <p className="text-red-500">{`${errors.email.message}`}</p>}
 					</div>
+					{/* coverage amount */}
 					<div className="flex flex-col space-y-1.5">
-						<Label htmlFor="message">Your message</Label>
-						<Textarea
-							className="resize-none"
-							{...register("message", {
-								required: "Please enter a message",
-								minLength: {
-									value: 10,
-									message: "Please enter a longer message (min 10 characters)",
-								},
-							})}
-							placeholder="Type your message here..."
-							id="message"
-							name="message"
-						/>
-						{errors.message && <p className="text-red-500">{`${errors.message.message}`}</p>}
+						<Label htmlFor="coverageAmount">Coverage Amount &#8377;</Label>
+						<Input {...register("coverageAmount", { required: "Please enter your coverage amount" })} type="number" placeholder="Amount" id="" autoComplete="off" />
+						{errors.coverageAmount && <p className="text-red-500">{`${errors.coverageAmount.message}`}</p>}
+					</div>
+
+					<h1 className="text-center font-bold text-xl">Health Information</h1>
+					<div>
+						<div className="flex items-center space-x-2">
+							<Checkbox id="smoke" value="smokes" {...register("smoke")} />
+							<label htmlFor="smoke" className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">
+								Smoke?
+							</label>
+							<Checkbox id="drink" value="drinks" {...register("drink")} />
+							<label htmlFor="drink" className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">
+								Drink?
+							</label>
+						</div>
+					</div>
+					<div className="grid w-full items-center gap-4">
+						<div className="flex flex-col space-y-1.5">
+							<Label htmlFor="medicalCondition">Pre-existing medical condition</Label>
+							<Input {...register("medicalCondition", { required: "Please enter a medical condition if any" })} placeholder="Medical Condition" type="text" id="medical-condition" autoComplete="off" />
+							{errors.medicalCondition && <p className="text-red-500">{`${errors.medicalCondition.message}`}</p>}
+						</div>
+
+						<div className="flex flex-col space-y-1.5">
+							<Label htmlFor="medications">Medications (if any)</Label>
+							<Input {...register("medications", { required: "Please enter medications if any" })} placeholder="Medications" type="text" name="medications" id="medications" autoComplete="off" />
+							{errors.medications && <p className="text-red-500">{`${errors.medications.message}`}</p>}
+						</div>
 					</div>
 				</div>
 			</CardContent>
-		</main>
+		</>
 	);
 }
