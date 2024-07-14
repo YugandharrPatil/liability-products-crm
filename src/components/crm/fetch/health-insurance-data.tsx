@@ -26,12 +26,12 @@ type FetchedData =
 	  }[]
 	| undefined;
 
-export default async function CarInsuranceData() {
-	const data: any = await fetchData("car-insurance");
+export default async function HealthInsuranceData() {
+	const data: any = await fetchData("health-insurance");
 	return (
 		<main className="container">
 			{/* LIFE INSURANCE */}
-			<h3 className="text-xl mb-3 font-bold">Car Insurance Data</h3>
+			<h3 className="text-xl mb-3 font-bold">Health Insurance Data</h3>
 			<div className="flex gap-4 justify-between">
 				{data &&
 					data.map((entry: { data: EntryData }, index: number) => (
