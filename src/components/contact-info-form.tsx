@@ -1,10 +1,7 @@
 "use client";
 
 // UI
-import { Card, CardContent } from "./ui/card";
 import { Input } from "./ui/input";
-import { Label } from "./ui/label";
-import { RadioGroup, RadioGroupItem } from "./ui/radio-group";
 import { Textarea } from "./ui/textarea";
 
 // HOOKS
@@ -15,8 +12,6 @@ import { FormControl, FormField, FormItem, FormLabel, FormMessage } from "./ui/f
 
 export default function ContactInfoForm() {
 	const {
-		register,
-		formState: { errors },
 		control,
 	} = useFormContext();
 	return (

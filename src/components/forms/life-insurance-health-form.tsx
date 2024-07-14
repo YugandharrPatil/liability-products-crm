@@ -1,22 +1,16 @@
 "use client";
 
 // UI COMPONENTS
-import { Card, CardContent } from "../ui/card";
 import { Checkbox } from "../ui/checkbox";
 import { Input } from "../ui/input";
-import { Label } from "../ui/label";
-import { RadioGroup, RadioGroupItem } from "../ui/radio-group";
-import { Textarea } from "../ui/textarea";
 // HOOKS
 import { useFormContext } from "react-hook-form";
 
 // FORM
-import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
+import { FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 
 export default function LifeInsuranceHealthForm() {
 	const {
-		register,
-		formState: { errors },
 		control,
 	} = useFormContext();
 	return (
