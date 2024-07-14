@@ -14,19 +14,48 @@ import PersonalInfoForm from "@/components/personal-info-form";
 
 import { Loader2 } from "lucide-react";
 // hook form
+import { Form } from "@/components/ui/form";
 import type { FieldValues } from "react-hook-form";
-import { FormProvider, useForm } from "react-hook-form";
+import { useForm } from "react-hook-form";
 
 // FIREBASE
 import ContactInfoForm from "@/components/contact-info-form";
-import LifeInsuranceForm from "@/components/forms/life-insurance-form";
+import LifeInsuranceHealthForm from "@/components/forms/life-insurance-health-form";
+import LifeInsurancePolicyForm from "@/components/forms/life-insurance-policy-form";
 import { firestore } from "@/lib/utils/firebase/config";
+import { zodResolver } from "@hookform/resolvers/zod";
 import { addDoc, collection, Timestamp } from "firebase/firestore/lite";
-
+import { z } from "zod";
 const { lifeInsuranceDescription } = PRODUCT_DESCRIPTION;
 
+const formSchema = z.object({
+	// PERSONAL DETAILS
+	name: z.string().min(1, { message: "Name is required" }),
+	gender: z.enum(["male", "female", "other"], {
+		required_error: "Please select a gender",
+	}),
+	// CONTACT DETAILS
+	city: z.string().min(1, { message: "City is required" }),
+	zip: z.string().min(1, { message: "ZIP Code is required" }),
+
+	country: z.string().min(1, { message: "Country is required" }),
+	email: z.string().email().min(1, { message: "Email is required" }),
+	address: z.string().min(1, { message: "Address is required" }).min(20, { message: "Address should be longer than 20 characters" }),
+
+// POLICY DETAILS
+	policyType: z.enum(["Term Life", "Whole Life", "Universal Life"], {
+		required_error: "Please select a policy type",
+	}),
+	coverageAmount: z.string().min(1, { message: "Coverage amount should be more than 2000" }),
+
+	// HEALTH DETAILS
+	smoke: z.boolean().default(false).optional(),
+	drink: z.boolean().default(false).optional(),
+	medicalCondition: z.string(), medications: z.string(),
+});
+
 export default function LifeInsurance() {
-	const methods = useForm();
+	const methods = useForm<z.infer<typeof formSchema>>({ resolver: zodResolver(formSchema), defaultValues: { name: "", gender: "male", city: "", zip: "", country: "", email: "", address: "", policyType: "Term Life", coverageAmount: "", smoke: false, drink: false, medicalCondition: "", medications: "" } });
 	const {
 		register,
 		handleSubmit,
@@ -35,7 +64,6 @@ export default function LifeInsurance() {
 	} = methods;
 
 	const onSubmit = async (data: any) => {
-		console.log(data);
 		try {
 			await addDoc(collection(firestore, "life-insurance"), {
 				data,
@@ -47,8 +75,6 @@ export default function LifeInsurance() {
 		} finally {
 			reset();
 		}
-
-		reset();
 	};
 
 	return (
@@ -62,21 +88,22 @@ export default function LifeInsurance() {
 						<CardTitle className="text-2xl">Apply for a Life Insurance Plan</CardTitle>
 						<CardDescription>Please fill the form below</CardDescription>
 					</CardHeader>
-					<FormProvider {...methods}>
-						<form onSubmit={handleSubmit(onSubmit)}>
-							{/* SUB-FORMS */}
-							<PersonalInfoForm />
-							<ContactInfoForm />
-							<LifeInsuranceForm />
-							<CardFooter>
-								<Button type="submit" className="w-full" disabled={isSubmitting}>
+					<CardContent>
+						<Form {...methods}>
+							<form onSubmit={methods.handleSubmit(onSubmit)}>
+								{/* SUB-FORMS */}
+								<PersonalInfoForm />
+								<ContactInfoForm />
+								<LifeInsurancePolicyForm />
+								<LifeInsuranceHealthForm />
+								<Button type="submit" className="w-full mt-8" disabled={isSubmitting}>
 									{isSubmitting && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
 									{isSubmitting ? "Submitting" : "Submit"}
 								</Button>
-							</CardFooter>
-							{isSubmitSuccessful && <p className="mb-3 text-center text-green-500">Submitted Successfully</p>}
-						</form>
-					</FormProvider>
+								{isSubmitSuccessful && <p className="mb-3 text-center text-green-500">Submitted Successfully</p>}
+							</form>
+						</Form>
+					</CardContent>
 				</Card>
 			</main>
 		</main>
