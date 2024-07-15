@@ -29,12 +29,12 @@ type FetchedData =
 export default async function HealthInsuranceData() {
 	const data: any = await fetchData("health-insurance");
 	return (
-		<main className="container">
+		<main className="container mb-4">
 			{/* LIFE INSURANCE */}
 			<h3 className="text-xl mb-3 font-bold">Health Insurance Data</h3>
-			<div className="flex gap-4 justify-between">
+			<div className="flex flex-wrap gap-4 justify-between">
 				{data &&
-					data.map((entry: { data: EntryData }, index: number) => (
+					data.map((entry: { data: any }, index: number) => (
 						<Card className="p-3 flex-1" key={index}>
 							<h3 className="font-bold">Personal Info</h3>
 							<p>Name: {entry.data.name}</p>
@@ -47,16 +47,16 @@ export default async function HealthInsuranceData() {
 							<p>Email: {entry.data.email}</p>
 							<p>Address: {entry.data.address}</p>
 
-							<h3 className="font-bold mt-4">Policy Details</h3>
-							<p>Policy Type: {entry.data.policyType}</p>
-							<p>Coverage Amount: {entry.data.coverageAmount}</p>
-							{/* <p>Policy Term: {entry.data.policyTerm}</p> */}
-
-							<h3 className="font-bold mt-4">Health & Lifestyle Details</h3>
-							<p>Smoke: {entry.data.smoke === false ? "No" : "Yes"}</p>
-							<p>Drink: {entry.data.drink === false ? "No" : "Yes"}</p>
+							<h3 className="font-bold mt-4">Health Details</h3>
 							<p>Medical Condition: {entry.data.medicalCondition}</p>
 							<p>Coverage Amount: {entry.data.medications}</p>
+							<p>Surgeries/Hospitalizations: {entry.data.surgeries}</p>
+
+							<h3 className="font-bold mt-4">Health & Lifestyle Details</h3>
+							<p>Coverage Type: {entry.data.coverageType}</p>
+							<p>Preferred Network: {entry.data.preferredNetwork}</p>
+							<p>Deductable Amount: {entry.data.deductableAmount}</p>
+							<p>Preferred Hospital: {entry.data.preferredHospital}</p>
 						</Card>
 					))}
 			</div>

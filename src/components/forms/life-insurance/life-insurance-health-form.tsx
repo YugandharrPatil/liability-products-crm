@@ -1,8 +1,8 @@
 "use client";
 
 // UI COMPONENTS
-import { Checkbox } from "../ui/checkbox";
-import { Input } from "../ui/input";
+import { Checkbox } from "../../ui/checkbox";
+import { Input } from "../../ui/input";
 // HOOKS
 import { useFormContext } from "react-hook-form";
 
@@ -10,9 +10,7 @@ import { useFormContext } from "react-hook-form";
 import { FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 
 export default function LifeInsuranceHealthForm() {
-	const {
-		control,
-	} = useFormContext();
+	const { control } = useFormContext();
 	return (
 		<main className="mt-4">
 			<h1 className="category-heading">Health & Lifestyle Details</h1>

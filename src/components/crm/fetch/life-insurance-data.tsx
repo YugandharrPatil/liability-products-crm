@@ -29,10 +29,10 @@ type FetchedData =
 export default async function LifeInsuranceData() {
 	const data: any = await fetchData("life-insurance");
 	return (
-		<main className="container">
+		<main className="container mb-4">
 			{/* LIFE INSURANCE */}
 			<h3 className="text-xl mb-3 font-bold">Life Insurance Data</h3>
-			<div className="flex gap-4 justify-between">
+			<div className="flex flex-wrap gap-4 justify-between">
 				{data &&
 					data.map((entry: { data: EntryData }, index: number) => (
 						<Card className="p-3 flex-1" key={index}>

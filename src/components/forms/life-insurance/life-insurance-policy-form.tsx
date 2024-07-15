@@ -1,24 +1,16 @@
 "use client";
 
 // UI COMPONENTS
-import { Card, CardContent } from "../ui/card";
-import { Checkbox } from "../ui/checkbox";
-import { Input } from "../ui/input";
-import { Label } from "../ui/label";
-import { RadioGroup, RadioGroupItem } from "../ui/radio-group";
-import { Textarea } from "../ui/textarea";
+import { Input } from "../../ui/input";
+import { RadioGroup, RadioGroupItem } from "../../ui/radio-group";
 // HOOKS
 import { useFormContext } from "react-hook-form";
 
 // FORM
-import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
+import { FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 
 export default function LifeInsurancePolicyForm() {
-	const {
-		register,
-		formState: { errors },
-		control,
-	} = useFormContext();
+	const { control } = useFormContext();
 	return (
 		<main>
 			<h1 className="category-heading">Policy Details</h1>
@@ -57,7 +49,7 @@ export default function LifeInsurancePolicyForm() {
 					)}
 				/>
 
-				{/* COVERATE AMOUNT */}
+				{/* COVERAGE AMOUNT */}
 				<FormField
 					control={control}
 					name="coverageAmount"

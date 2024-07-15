@@ -12,9 +12,7 @@ import { useFormContext } from "react-hook-form";
 import { FormControl, FormField, FormItem, FormLabel, FormMessage } from "./ui/form";
 
 export default function PersonalInfoForm() {
-	const {
-		control,
-	} = useFormContext();
+	const { control } = useFormContext();
 	return (
 		<main>
 			<h1 className="category-heading">Personal Info</h1>
@@ -62,6 +60,33 @@ export default function PersonalInfoForm() {
 											<RadioGroupItem value="other" />
 										</FormControl>
 										<FormLabel className="font-normal">Other</FormLabel>
+									</FormItem>
+								</RadioGroup>
+							</FormControl>
+							<FormMessage />
+						</FormItem>
+					)}
+				/>
+
+				<FormField
+					control={control}
+					name="married"
+					render={({ field }) => (
+						<FormItem className="space-y-3">
+							<FormLabel>Married</FormLabel>
+							<FormControl>
+								<RadioGroup onValueChange={field.onChange} defaultValue={field.value} className="flex flex-col space-y-1">
+									<FormItem className="flex items-center space-x-3 space-y-0">
+										<FormControl>
+											<RadioGroupItem value="married" />
+										</FormControl>
+										<FormLabel className="font-normal">Married</FormLabel>
+									</FormItem>
+									<FormItem className="flex items-center space-x-3 space-y-0">
+										<FormControl>
+											<RadioGroupItem value="single" />
+										</FormControl>
+										<FormLabel className="font-normal">Single</FormLabel>
 									</FormItem>
 								</RadioGroup>
 							</FormControl>

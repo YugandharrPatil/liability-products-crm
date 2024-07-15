@@ -29,12 +29,12 @@ type FetchedData =
 export default async function CarInsuranceData() {
 	const data: any = await fetchData("car-insurance");
 	return (
-		<main className="container">
+		<main className="container mb-4">
 			{/* LIFE INSURANCE */}
 			<h3 className="text-xl mb-3 font-bold">Car Insurance Data</h3>
 			<div className="flex gap-4 justify-between">
 				{data &&
-					data.map((entry: { data: EntryData }, index: number) => (
+					data.map((entry: { data: any }, index: number) => (
 						<Card className="p-3 flex-1" key={index}>
 							<h3 className="font-bold">Personal Info</h3>
 							<p>Name: {entry.data.name}</p>
@@ -47,16 +47,23 @@ export default async function CarInsuranceData() {
 							<p>Email: {entry.data.email}</p>
 							<p>Address: {entry.data.address}</p>
 
-							<h3 className="font-bold mt-4">Policy Details</h3>
-							<p>Policy Type: {entry.data.policyType}</p>
-							<p>Coverage Amount: {entry.data.coverageAmount}</p>
-							{/* <p>Policy Term: {entry.data.policyTerm}</p> */}
+							<h3 className="font-bold mt-4">Vehicle Details</h3>
+							<p>Vehicle Make: {entry.data.vehicleMake}</p>
+							<p>Vehicle Model: {entry.data.vehicleModel}</p>
+							<p>VIN: {entry.data.vehicleIdentificationNumber}</p>
+							<p>Mileage: {entry.data.mileage}</p>
 
-							<h3 className="font-bold mt-4">Health & Lifestyle Details</h3>
-							<p>Smoke: {entry.data.smoke === false ? "No" : "Yes"}</p>
-							<p>Drink: {entry.data.drink === false ? "No" : "Yes"}</p>
-							<p>Medical Condition: {entry.data.medicalCondition}</p>
-							<p>Coverage Amount: {entry.data.medications}</p>
+							<h3 className="font-bold mt-4">Driving Info</h3>
+							<p>Driving History: {entry.data.drivingHistory}</p>
+							<p>Usage: {entry.data.usage}</p>
+							<p>Driver Info: {entry.data.driverInfo}</p>
+							<p>Annual Milege: {entry.data.mileage}</p>
+
+							<h3 className="font-bold mt-4">Policy Details</h3>
+							<p>Coverage Type: {entry.data.coverageType}</p>
+							<p>Deductable Amount: {entry.data.deductableAmount}</p>
+							<p>Account Coverage: {entry.data.accountCoverage}</p>
+							<p>Payment Frequency: {entry.data.paymentFrequency}</p>
 						</Card>
 					))}
 			</div>

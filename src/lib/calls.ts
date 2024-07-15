@@ -8,7 +8,7 @@ export default async function fetchData(tableName: tableNames) {
 		const col = collection(firestore, tableName);
 		const data = await getDocs(col);
 		const docs = data.docs.map((doc) => ({ id: doc.id, ...doc.data() })); // all docs array
-		console.log(docs);
+		// console.log(docs);
 		return docs;
 	} catch (err) {
 		console.log(err);
