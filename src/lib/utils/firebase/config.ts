@@ -6,12 +6,12 @@ import { getFirestore } from "firebase/firestore/lite";
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
-	apiKey: "AIzaSyBuQQxLTumvxgrPyczW5_2_qVSduX3Yfv0",
-	authDomain: "liability-products-crm.firebaseapp.com",
-	projectId: "liability-products-crm",
-	storageBucket: "liability-products-crm.appspot.com",
-	messagingSenderId: "891702435550",
-	appId: "1:891702435550:web:0f3305ec45ef2d38312c4f",
+	apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY,
+	authDomain: process.env.NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN,
+	projectId: process.env.NEXT_PUBLIC_FIREBASE_PROJECT_ID,
+	storageBucket: process.env.NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET,
+	messagingSenderId: process.env.NEXT_PUBLIC_FIREBASE_MESSASING_SENDER_ID,
+	appId: process.env.NEXT_PUBLIC_FIREBASE_APP_ID,
 };
 
 // Initialize Firebase

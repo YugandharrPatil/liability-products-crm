@@ -1,6 +1,11 @@
+"use client";
+import { firestore } from "@/lib/utils/firebase/config";
+import { collection, getDocs } from "firebase/firestore/lite";
+
 // make call to database fetching all orders and display them here. additionally, add filters (product, time span, etc)
 import { Card } from "@/components/ui/card";
-import fetchData from "@/lib/calls";
+// import fetchData from "@/lib/calls";
+import { useEffect, useState } from "react";
 
 type EntryData = {
 	name: string;
@@ -19,6 +24,8 @@ type EntryData = {
 	medications: string;
 };
 
+type tableNames = "life-insurance" | "health-insurance" | "car-insurance";
+
 type FetchedData =
 	| {
 			id: string;
@@ -26,8 +33,28 @@ type FetchedData =
 	  }[]
 	| undefined;
 
-export default async function LifeInsuranceData() {
-	const data: any = await fetchData("life-insurance");
+export default function LifeInsuranceData() {
+	const [data, setData] = useState<any>([]);
+	const [isLoading, setIsLoading] = useState(false);
+	useEffect(() => {
+		async function fetchData(tableName: tableNames) {
+			setIsLoading(true);
+			try {
+				const col = collection(firestore, tableName);
+				const data = await getDocs(col);
+				const docs = data.docs.map((doc) => ({ id: doc.id, ...doc.data() })); // all docs array
+				console.log("fetched");
+				setData(docs);
+			} catch (err) {
+				console.log(err);
+			} finally {
+				setIsLoading(false);
+			}
+		}
+		fetchData("life-insurance");
+	}, []);
+	console.log(data);
+	// const data: any = await fetchData("life-insurance");
 	return (
 		<main className="container mb-4">
 			{/* LIFE INSURANCE */}
@@ -60,6 +87,7 @@ export default async function LifeInsuranceData() {
 						</Card>
 					))}
 			</div>
+			{/* {JSON.stringify(!isLoading && data)} */}
 		</main>
 	);
 }
