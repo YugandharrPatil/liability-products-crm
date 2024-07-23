@@ -24,7 +24,7 @@ type EntryData = {
 	medications: string;
 };
 
-type tableNames = "life-insurance" | "health-insurance" | "car-insurance";
+export type tableNames = "life-insurance" | "health-insurance" | "car-insurance";
 
 type FetchedData =
 	| {
@@ -35,10 +35,10 @@ type FetchedData =
 
 export default function LifeInsuranceData() {
 	const [data, setData] = useState<any>([]);
-	const [isLoading, setIsLoading] = useState(false);
+	// const [isLoading, setIsLoading] = useState(false);
 	useEffect(() => {
 		async function fetchData(tableName: tableNames) {
-			setIsLoading(true);
+			// setIsLoading(true);
 			try {
 				const col = collection(firestore, tableName);
 				const data = await getDocs(col);
@@ -48,7 +48,7 @@ export default function LifeInsuranceData() {
 			} catch (err) {
 				console.log(err);
 			} finally {
-				setIsLoading(false);
+				// setIsLoading(false);
 			}
 		}
 		fetchData("life-insurance");

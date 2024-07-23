@@ -1,7 +1,12 @@
+"use client";
 // make call to database fetching all orders and display them here. additionally, add filters (product, time span, etc)
 import { Card } from "@/components/ui/card";
 import fetchData from "@/lib/calls";
+import { firestore } from "@/lib/utils/firebase/config";
+import { collection, getDocs } from "firebase/firestore/lite";
+import { useEffect, useState } from "react";
 
+import type { tableNames } from "./life-insurance-data";
 type EntryData = {
 	name: string;
 	gender: string;
@@ -26,8 +31,27 @@ type FetchedData =
 	  }[]
 	| undefined;
 
-export default async function HealthInsuranceData() {
-	const data: any = await fetchData("health-insurance");
+export default function HealthInsuranceData() {
+	const [data, setData] = useState<any>([]);
+	// const [isLoading, setIsLoading] = useState(false);
+	useEffect(() => {
+		async function fetchData(tableName: tableNames) {
+			// setIsLoading(true);
+			try {
+				const col = collection(firestore, tableName);
+				const data = await getDocs(col);
+				const docs = data.docs.map((doc) => ({ id: doc.id, ...doc.data() })); // all docs array
+				console.log("fetched");
+				setData(docs);
+			} catch (err) {
+				console.log(err);
+			} finally {
+				// setIsLoading(false);
+			}
+		}
+		fetchData("health-insurance");
+	}, []);
+	console.log(data);
 	return (
 		<main className="container mb-4">
 			{/* LIFE INSURANCE */}
